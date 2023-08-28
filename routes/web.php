@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\MovieController;
+use App\Http\Controllers\Admin\MovieController;
+use App\Http\Controllers\Admin\TransactionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +31,8 @@ Route::group(['prefix' => 'admin'], function(){
         Route::delete('/destroy/{id}',[MovieController::class, 'destroy'])->name('admin.movie.destroy');
 
     });
+
+    Route::get('transaction', [TransactionController::class, 'index'])->name('admin.transaction.transactions');
 
 
 });  

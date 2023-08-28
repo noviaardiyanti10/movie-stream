@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Transaction extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
     protected $table = 'transactions';
     protected $fillable = [
         'package_id',
@@ -17,4 +17,14 @@ class Transaction extends Model
         'trasaction_code',
         'status'
     ];
+
+    public function package(){
+        return $this->belongsTo(Package::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
+
+
 }
