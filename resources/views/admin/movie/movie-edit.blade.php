@@ -8,7 +8,7 @@
   <div class="col-md-12">
 
     {{-- Alert Here --}}
-    @if ($errors->any())
+    {{-- @if ($errors->any())
       <div class="alert alert-danger">
         <ul>
           @foreach ($errors->all() as $error)
@@ -16,7 +16,7 @@
           @endforeach
         </ul>
       </div>
-    @endif
+    @endif --}}
 
     <div class="card card-primary">
       <div class="card-header">
@@ -28,55 +28,132 @@
         @csrf
         @method('PUT')
         <div class="card-body">
+   
           <div class="form-group">
             <label for="title">Title</label>
             <input type="text" class="form-control" id="title" name="title" placeholder="e.g Guardian of The Galaxy" value="{{$data->title}}">
+
+            @error('title')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="trailer">Trailer</label>
             <input type="text" class="form-control" id="trailer" name="trailer" placeholder="Video url" value="{{$data->trailer}}">
+
+            @error('trailer')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="movie">Movie</label>
             <input type="text" class="form-control" id="movie" name="movie" placeholder="Movie url" value="{{$data->movie}}">
           </div>
+
+          <div class="form-group">
+            <label for="movie">Movie</label>
+            <input type="text" class="form-control" id="movie" name="movie" placeholder="Movie url" alue="{{$data->movie}}">
+            
+            @error('movie')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          
+          </div>
+
           <div class="form-group">
             <label for="duration">Duration</label>
             <input type="text" class="form-control" id="duration" name="duration" placeholder="1h 39m" value="{{$data->duration}}">
+           
+            @error('duration')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+          
           </div>
+
           <div class="form-group">
             <label>Date:</label>
             <div class="input-group date" id="release-date" data-target-input="nearest">
-              <input type="text" name="release_date" class="form-control datetimepicker-input" data-target="#release-date" value="{{$data->release_date}}"/>
+              <input type="text" name="release_date" class="form-control datetimepicker-input" placeholder="YYYY-MM-DD" data-target="#release-date"  value="{{$data->release_date}}"/>
               <div class="input-group-append" data-target="#release-date" data-toggle="datetimepicker">
                 <div class="input-group-text"><i class="fa fa-calendar"></i></div>
               </div>
             </div>
+
+            @error('release_date')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="casts">Casts</label>
-            <input type="text" class="form-control" id="casts" name="casts" placeholder="Jackie Chan" value="{{$data->casts}}">
+            <input type="text" class="form-control" id="casts" name="casts" placeholder="Jackie Chan" value="{{old('casts')}}">
+            
+            @error('casts')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="categories">Categories</label>
             <input type="text" class="form-control" id="categories" name="categories" placeholder="Action, Fantasy" value="{{$data->categories}}">
           </div>
+
+          <div class="form-group">
+            <label for="categories">Categories</label>
+            <input type="text" class="form-control" id="categories" name="categories" placeholder="Action, Fantasy" value="{{$data->categories}}">
+            
+            @error('categories')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
+          </div>
+
           <div class="form-group">
             <label for="small-thumbnail">Small Thumbnail</label>
             <input type="file" class="form-control" name="small_thumbnail">
+
+            @error('small_thumbnail')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="large-thumbnail">Large Thumbnail</label>
             <input type="file" class="form-control" name="large_thumbnail">
+
+            @error('large_thumbnail')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="short-about">Short About</label>
             <input type="text" class="form-control" id="short_about" name="short_about" placeholder="Awesome Movie" value="{{$data->short_about}}">
+
+            @error('short_about')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label for="short-about">About</label>
             <input type="text" class="form-control" id="about" name="about" placeholder="Awesome Movie" value="{{$data->about}}">
+           
+            @error('about')
+            <span class="text-danger">{{ $message }}</span>
+            @enderror
+
           </div>
+
           <div class="form-group">
             <label>Featured</label>
             <select class="custom-select" name="featured">
@@ -85,6 +162,20 @@
             </select>
           </div>
         </div>
+
+        <div class="form-group">
+          <label>Featured</label>
+          <select class="custom-select" name="featured">
+            <option value="0" {{$data->featured === '0' ? 'selected' : ""}}>No</option>
+            <option value="1" {{$data->featured === '1' ? 'selected' : ""}}>Yes</option>
+          </select>
+
+          @error('featured')
+          <span class="text-danger">{{ $message }}</span>
+          @enderror
+
+        </div>
+      </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
