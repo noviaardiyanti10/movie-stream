@@ -22,22 +22,12 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
-      
-      {{-- alert here --}}
-      @if ($errors->any())
-        <div class="alert alert-danger">
-          <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-          </ul>
-        </div>
-      @endif
+      <p class="login-box-msg">Sign in to start your session</p>  
 
       <form action="{{route('admin.login.auth')}}" method="post">
         @csrf
-        <div class="input-group mb-3">
+
+        <div class="input-group">
           <input type="email" class="form-control" name="email" placeholder="Email" value="{{ old('email') }}">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -45,7 +35,13 @@
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <div class="mb-3">
+          @error('email')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+        </div>
+      
+        <div class="input-group">
           <input type="password" class="form-control" name="password" placeholder="Password" value="{{ old('password') }}">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -53,6 +49,12 @@
             </div>
           </div>
         </div>
+        <div class="mb-3">
+          @error('password')
+            <span class="text-danger">{{ $message }}</span>
+          @enderror
+        </div>
+ 
         <div class="row">
           <!-- /.col -->
           <div class="col-4">
