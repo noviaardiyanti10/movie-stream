@@ -34,7 +34,7 @@
             <input type="text" class="form-control" id="title" name="title" placeholder="e.g Guardian of The Galaxy" value="{{$data->title}}">
 
             @error('title')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="title">{{ $message }}</span>
             @enderror
 
           </div>
@@ -44,7 +44,7 @@
             <input type="text" class="form-control" id="trailer" name="trailer" placeholder="Video url" value="{{$data->trailer}}">
 
             @error('trailer')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="trailer">{{ $message }}</span>
             @enderror
 
           </div>
@@ -52,14 +52,9 @@
           <div class="form-group">
             <label for="movie">Movie</label>
             <input type="text" class="form-control" id="movie" name="movie" placeholder="Movie url" value="{{$data->movie}}">
-          </div>
-
-          <div class="form-group">
-            <label for="movie">Movie</label>
-            <input type="text" class="form-control" id="movie" name="movie" placeholder="Movie url" alue="{{$data->movie}}">
             
             @error('movie')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="movie">{{ $message }}</span>
             @enderror
           
           </div>
@@ -67,9 +62,9 @@
           <div class="form-group">
             <label for="duration">Duration</label>
             <input type="text" class="form-control" id="duration" name="duration" placeholder="1h 39m" value="{{$data->duration}}">
-           
+            
             @error('duration')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="duration">{{ $message }}</span>
             @enderror
           
           </div>
@@ -84,33 +79,28 @@
             </div>
 
             @error('release_date')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="release_date">{{ $message }}</span>
             @enderror
 
           </div>
 
           <div class="form-group">
             <label for="casts">Casts</label>
-            <input type="text" class="form-control" id="casts" name="casts" placeholder="Jackie Chan" value="{{old('casts')}}">
+            <input type="text" class="form-control" id="casts" name="casts" placeholder="Jackie Chan" value="{{$data->casts}}">
             
             @error('casts')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="casts">{{ $message }}</span>
             @enderror
 
           </div>
-
-          <div class="form-group">
-            <label for="categories">Categories</label>
-            <input type="text" class="form-control" id="categories" name="categories" placeholder="Action, Fantasy" value="{{$data->categories}}">
-          </div>
-
           <div class="form-group">
             <label for="categories">Categories</label>
             <input type="text" class="form-control" id="categories" name="categories" placeholder="Action, Fantasy" value="{{$data->categories}}">
             
             @error('categories')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="categories">{{ $message }}</span>
             @enderror
+
 
           </div>
 
@@ -139,7 +129,7 @@
             <input type="text" class="form-control" id="short_about" name="short_about" placeholder="Awesome Movie" value="{{$data->short_about}}">
 
             @error('short_about')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="short_about">{{ $message }}</span>
             @enderror
 
           </div>
@@ -149,8 +139,9 @@
             <input type="text" class="form-control" id="about" name="about" placeholder="Awesome Movie" value="{{$data->about}}">
            
             @error('about')
-            <span class="text-danger">{{ $message }}</span>
+            <span class="text-danger error-message" data-field="about">{{ $message }}</span>
             @enderror
+
 
           </div>
 
@@ -160,26 +151,17 @@
               <option value="0" {{$data->featured === '0' ? 'selected' : ""}}>No</option>
               <option value="1" {{$data->featured === '1' ? 'selected' : ""}}>Yes</option>
             </select>
+
+            @error('featured')
+            <span class="text-danger error-message" data-field="featured">{{ $message }}</span>
+            @enderror
+
           </div>
-        </div>
-
-        <div class="form-group">
-          <label>Featured</label>
-          <select class="custom-select" name="featured">
-            <option value="0" {{$data->featured === '0' ? 'selected' : ""}}>No</option>
-            <option value="1" {{$data->featured === '1' ? 'selected' : ""}}>Yes</option>
-          </select>
-
-          @error('featured')
-          <span class="text-danger">{{ $message }}</span>
-          @enderror
-
-        </div>
       </div>
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary btn-edit">Submit</button>
         </div>
       </form>
     </div>
@@ -189,8 +171,7 @@
 
 @section('js')
   <script>
-    $("#release-date").datetimepicker({
-      format: 'YYYY-MM-DD'
-    })
+    formatDatePicker("#release-date");
+    validationForm();
   </script>
 @endsection
