@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Member\AuthController as MemberAuthController;
+use App\Http\Controllers\Member\DashboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -44,3 +46,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
 
 
 });  
+
+Route::group(['prefix' => 'member'], function(){
+    Route::get('landing-page', [DashboardController::class, 'index'])->name('member.landing-page');
+    Route::get('register', [MemberAuthController::class, 'index'])->name('member.register');
+    Route::post('store', [MemberAuthController::class, 'store'])->name('member.register.store');
+});
