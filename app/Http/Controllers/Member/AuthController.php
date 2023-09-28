@@ -3,34 +3,32 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Member\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
     public function index(){
-        return view('member.register');
+        return view('member.login');
     }
 
-    public function store(RegisterRequest $request){
-        $data = $request->except('_token');
+    public function auth(LoginRequest $request){
+        
+        $credential = $request->only('email', 'password');
+        $credential['role'] = 'member';
 
-        $checkEmail = User::where('email', $request->email)->exists();
+        if(Auth::attempt($credential)){
+            $request->session()->regenerate();
 
-        if($checkEmail){
-            return back()->withErrors([
-                'email' => 'This email already exist'
-            ])->withInput();
+            return 'success';
         }
 
-        $data['role'] = 'member';
-        $data['password'] = Hash::make($request->password); 
-
-        User::create($data);
-
-        return back();
+        return back()->withErrors([
+            'error' => 'Your credentials are wrong!'
+        ]);
 
     }
 }
