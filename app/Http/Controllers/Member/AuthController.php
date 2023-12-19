@@ -23,12 +23,22 @@ class AuthController extends Controller
         if(Auth::attempt($credential)){
             $request->session()->regenerate();
 
-            return 'success';
+            return redirect()->route('member.dashboard.movies');
         }
 
         return back()->withErrors([
             'error' => 'Your credentials are wrong!'
         ]);
 
+    }
+
+    public function logout(Request $request){
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+    
+        $request->session()->regenerateToken();
+
+        return redirect()->route('member.login');
     }
 }

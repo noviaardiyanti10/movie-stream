@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\TransactionController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Member\AuthController as MemberAuthController;
 use App\Http\Controllers\Member\DashboardController;
+use App\Http\Controllers\Member\MovieController as MemberMovieController;
+use App\Http\Controllers\Member\PricingController;
 use App\Http\Controllers\Member\RegisterController;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
     Route::get('transaction', [TransactionController::class, 'index'])->name('admin.transaction.transactions');
 
 
-});  
+});
 
 Route::group(['prefix' => 'member'], function(){
     Route::get('landing-page', [DashboardController::class, 'index'])->name('member.landing-page');
@@ -54,4 +56,17 @@ Route::group(['prefix' => 'member'], function(){
     Route::post('register', [RegisterController::class, 'store'])->name('member.register.store');
     Route::get('login', [MemberAuthController::class, 'index'])->name('member.login');
     Route::post('login', [MemberAuthController::class, 'auth'])->name('member.login.auth');
+
+    Route::get('pricing', [PricingController::class, 'index'])->name('member.pricing');
+
+
+});
+
+
+Route::group(['prefix' => 'member', 'middleware' => 'auth'], function(){
+
+    Route::get('movies', [DashboardController::class, 'showMovies'])->name('member.dashboard.movies');
+    Route::get('movie/{id}', [MemberMovieController::class, 'show'])->name('member.movie.details');
+    Route::get('logout', [MemberAuthController::class, 'logout'])->name('member.logout');
+
 });
