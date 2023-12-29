@@ -14,7 +14,7 @@ class Transaction extends Model
         'package_id',
         'user_id',
         'amount',
-        'trasaction_code',
+        'transaction_code',
         'status'
     ];
 

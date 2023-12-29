@@ -17,7 +17,7 @@
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
                     <img src="{{asset('stream/assets/images/ic_play.svg')}}" width="80" alt="">
                 </div>
-                <a href="watching.html" class="inset-0 absolute z-50"></a>
+                <a href="{{route('member.movie.watch', $data->id)}}" class="inset-0 absolute z-50"></a>
             </div>
 
             <!-- Judul & Rating -->

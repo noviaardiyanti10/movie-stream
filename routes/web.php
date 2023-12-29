@@ -8,6 +8,8 @@ use App\Http\Controllers\Member\DashboardController;
 use App\Http\Controllers\Member\MovieController as MemberMovieController;
 use App\Http\Controllers\Member\PricingController;
 use App\Http\Controllers\Member\RegisterController;
+use App\Http\Controllers\Member\TransactionController as MemberTransactionController;
+use App\Http\Controllers\Member\UserPremiumController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +52,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin.auth'], function(){
 
 });
 
+Route::get('payment/finish', [MemberTransactionController::class, 'successPayment'])->name('member.payment.finish');
+
+
 Route::group(['prefix' => 'member'], function(){
     Route::get('landing-page', [DashboardController::class, 'index'])->name('member.landing-page');
     Route::get('register', [RegisterController::class, 'index'])->name('member.register');
@@ -58,8 +63,6 @@ Route::group(['prefix' => 'member'], function(){
     Route::post('login', [MemberAuthController::class, 'auth'])->name('member.login.auth');
 
     Route::get('pricing', [PricingController::class, 'index'])->name('member.pricing');
-
-
 });
 
 
@@ -68,5 +71,11 @@ Route::group(['prefix' => 'member', 'middleware' => 'auth'], function(){
     Route::get('movies', [DashboardController::class, 'showMovies'])->name('member.dashboard.movies');
     Route::get('movie/{id}', [MemberMovieController::class, 'show'])->name('member.movie.details');
     Route::get('logout', [MemberAuthController::class, 'logout'])->name('member.logout');
+
+    Route::post('transaction', [MemberTransactionController::class, 'store'])->name('member.transaction.store');
+    Route::get('subscription', [UserPremiumController::class, 'index'])->name('member.user_premium.index');
+    Route::delete('subscription/{id}', [UserPremiumController::class, 'destroy'])->name('member.user_premium.destroy');
+
+    Route::get('movie/{id}/watch', [MemberMovieController::class, 'watch'])->name('member.movie.watch');
 
 });
